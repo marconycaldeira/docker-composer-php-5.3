@@ -11,12 +11,15 @@ RUN apt-get update && \
       php5-gd \
       php5-ldap \
       php5-mysql \
-      php5-pgsql
+      php5-pgsql \
+      libcurl3  \
+      libcurl3-dev \
+      php5-curl 
 
 COPY apache_default /etc/apache2/sites-available/default
 COPY run /usr/local/bin/run
 RUN chmod +x /usr/local/bin/run
 RUN a2enmod rewrite
-
+RUN echo "extension=curl.so" >> /etc/php5/apache2/php.ini
 EXPOSE 80
 CMD ["/usr/local/bin/run"]
